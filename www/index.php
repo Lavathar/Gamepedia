@@ -2,7 +2,7 @@
 
 namespace gamepedia;
 
-require_once '../../../src/Gamepedia/src/vendor/autoload.php';
+require_once '../src/Gamepedia/src/vendor/autoload.php';
 
 use gamepedia\model\game;
 use gamepedia\model\platform;
@@ -13,7 +13,7 @@ use Psr\Http\Message\ServerRequestInterface as Request;
 
 session_start();
 
-Eloquent::start('../../../src/Gamepedia/src/conf/conf.ini');
+Eloquent::start('../src/Gamepedia/src/conf/conf.ini');
 
 $c = new \Slim\Container(['settings'=>['displayErrorDetails' => true]]);
 $app = new \Slim\App($c);
