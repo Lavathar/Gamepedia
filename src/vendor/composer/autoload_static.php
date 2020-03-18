@@ -22,6 +22,7 @@ class ComposerStaticInit3a0ed121196e7acfae2c02e0349da4c3
         'S' => 
         array (
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Contracts\\Translation\\' => 30,
             'Symfony\\Component\\Translation\\' => 30,
             'Slim\\' => 5,
         ),
@@ -59,11 +60,15 @@ class ComposerStaticInit3a0ed121196e7acfae2c02e0349da4c3
         ),
         'gamepedia\\' => 
         array (
-            0 => __DIR__ . '/../..' . '/../../../www/Gamepedia',
+            0 => __DIR__ . '/../..' . '/..',
         ),
         'Symfony\\Polyfill\\Mbstring\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
+        ),
+        'Symfony\\Contracts\\Translation\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/translation-contracts',
         ),
         'Symfony\\Component\\Translation\\' => 
         array (

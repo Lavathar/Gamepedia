@@ -8,8 +8,9 @@ $baseDir = dirname($vendorDir);
 return array(
     'gamepedia\\model\\' => array($baseDir . '/model'),
     'gamepedia\\bd\\' => array($baseDir . '/bd'),
-    'gamepedia\\' => array($baseDir . '/../../../www/Gamepedia'),
+    'gamepedia\\' => array($baseDir . '/..'),
     'Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
+    'Symfony\\Contracts\\Translation\\' => array($vendorDir . '/symfony/translation-contracts'),
     'Symfony\\Component\\Translation\\' => array($vendorDir . '/symfony/translation'),
     'Slim\\' => array($vendorDir . '/slim/slim/Slim'),
     'Psr\\SimpleCache\\' => array($vendorDir . '/psr/simple-cache/src'),
