@@ -2,6 +2,8 @@
 
 namespace gamepedia;
 
+ini_set('memory_limit', '512M');
+
 require_once '../../../src/Gamepedia/src/vendor/autoload.php';
 
 use gamepedia\model\game;
@@ -12,6 +14,7 @@ use gamepedia\model\gameRating;
 use gamepedia\bd\Eloquent;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
+use Illuminate\Database\Capsule\Manager as DB;
 
 session_start();
 
@@ -19,6 +22,8 @@ Eloquent::start('../../../src/Gamepedia/src/conf/conf.ini');
 
 $c = new \Slim\Container(['settings'=>['displayErrorDetails' => true]]);
 $app = new \Slim\App($c);
+
+DB::connection()->enableQueryLog();
 
 
  // --- Fonctions ---
@@ -38,6 +43,7 @@ function getMario()
     }
     $timeEnd = microtime(true);
     $time = $timeEnd - $timeStart;
+    getLog();
     echo "<p>$time</p>";
 }
 
@@ -95,32 +101,38 @@ function getPersoId()
     foreach ($games->characters as $ch) {
         echo "<p>$ch->id - $ch->name - $ch->deck</p>";
     }
+    getLog();
 }
 
 function getPersoMario()
 {
     $timeStart = microtime(true);
-    foreach (game::where('name', 'like', 'Mario%')
-                 ->get() as $game) {
-        echo "<p>$game->name</p>";
-        foreach ($game->characters as $ch) {
-            echo "<p>$ch->id - $ch->name - $ch->deck</p>";
+    $games = Game::where('name', 'like', 'Mario%')
+        ->with('characters')
+        ->get();
+    foreach ($games as $g) {
+        foreach($g->characters as $ch){
+            echo "<div style='border : 1px solid; margin : 5px'><h3>$ch->id - $ch->name</h3> $ch->deck</div>";
         }
     }
     $timeEnd = microtime(true);
     $time = $timeEnd - $timeStart;
     echo "<p>$time</p>";
+    getLog();
 }
 
 function getJeuxSony()
 {
-    foreach (company::where('name', 'like', '%Sony%')
-                 ->get() as $company) {
-        echo "<p>$company->name</p>";
-        foreach ($company->gamesDeveloped as $gd) {
-            echo "<p>$gd->id - $gd->name - $gd->deck</p>";
+    $company = company::where('name', 'like', '%Sony%')
+        ->with('gamesDeveloped')
+        ->get();
+        foreach ($company as $cp) {
+            echo "<p>$cp->name</p>";
+            foreach ($cp->gamesDeveloped as $gd){
+                echo "<p>$gd->id - $gd->name - $gd->deck</p>";
+            }
         }
-    }
+    getLog();
 }
 
 function getRatingMario()
@@ -215,6 +227,20 @@ function getRatingMarioIncTroisPlusCero()
 
 }*/
 
+    // TD3
+
+function getLog(){
+    $i = 0;
+    foreach( DB::getQueryLog() as $q){
+        echo "<p>$q[query]</p>";
+        echo "<p>bindings : [</p>";
+        $i++;
+        foreach ($q['bindings'] as $b ) {
+            echo "<p>$b</p>";
+        }
+    }
+    echo "<p>Il y a $i requêtes</p>";
+}
 
 
  // --- Affichage ---

@@ -53,7 +53,7 @@ class game extends Model
     }
 
     public function comments() {
-        return $this->hasMany('\gamepedia\model\comment', 'game_id');
+        return $this->hasMany('\gamepedia\model\commentaire','idJeu');
     }
 
 }
