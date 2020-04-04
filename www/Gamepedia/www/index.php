@@ -46,7 +46,7 @@ function getMario()
     $timeEnd = microtime(true);
     $time = $timeEnd - $timeStart;
     getLog();
-    echo "<p>$time</p>";
+    echo "<p>temps d'execution : $time s</p>";
 }
 
 function getJapon()
@@ -90,7 +90,7 @@ function getListeJeux()
     }
     $timeEnd = microtime(true);
     $time = $timeEnd - $timeStart;
-    echo "<p>$time</p>";
+    echo "<p>temps d'execution : $time s</p>";
 }
 
 
@@ -119,7 +119,7 @@ function getPersoMario()
     }
     $timeEnd = microtime(true);
     $time = $timeEnd - $timeStart;
-    echo "<p>$time</p>";
+    echo "<p>temps d'execution : $time s</p>";
     getLog();
 }
 
@@ -176,7 +176,7 @@ function getRatingMarioTroisPlus()
     }
     $timeEnd = microtime(true);
     $time = $timeEnd - $timeStart;
-    echo "<p>$time</p>";
+    echo "<p>temps d'execution : $time s</p>";
 }
 
 function getRatingMarioIncTroisPlus()
