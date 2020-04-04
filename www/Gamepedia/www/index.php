@@ -245,6 +245,20 @@ function getLog(){
 }
 
 
+// TD4
+
+function listCommUser() {
+  $user = utilisateur::where('email', 'like', 'kohler.alicia@hotmail.com')
+      ->with('comments')
+      ->first();
+        echo "<p>Commentaires de l'utilisateur nommé $user->nom $user->prenom (email : $user->email)</p>";
+        foreach ($user->comments as $c){
+            echo "<p>$c->datCrea</br>$c->titre</br>$c->contenu</br></p>";
+        }
+  getLog();
+}
+
+
  // --- Affichage ---
 
 $app->get('/accueil[/]',
@@ -401,9 +415,16 @@ $app->get('/insertion[/]',
       $res= "<h2>INSERTION</h2>";
       $fake-> user();
       $fake-> comment();
-      $fake-> link();
       $rs->getBody()->write($res);
       return $rs;
     });
+
+$app->get('/listCommentUser[/]',
+  function(Request $rq, Response $rs, $args) {
+    $res= "<h2>liste des commentaires publiés par un utilisateur donné</h2>";
+    listCommUser();
+    $rs->getBody()->write($res);
+    return $rs;
+  });
 
 $app->run();

@@ -22,11 +22,11 @@ class fake {
   {
     $faker = Faker\Factory::create();
 
-    for ($i = 1; $i < 100; $i++) {
+    for ($i = 1; $i <= 100; $i++) {
       $user = new utilisateur;
       $users = utilisateur::select('email')->get();
       $var = $faker->email;
-      $this->tab[i]=$var;
+      $this->tab[$i]=$var;
       $user-> email = $var;
       $user-> nom = $faker->lastName;
       $user-> prenom = $faker->firstName($gender = null|'male'|'female');
@@ -47,19 +47,9 @@ class fake {
       $commentaire-> contenu = $faker->sentence($nbWords = 30, $variableNbWords = true);
       $commentaire-> idJeu = rand(1, 47948);
       $commentaire-> datCrea = $faker->dateTime($max='now', $timezone=null);
+      $ra = rand(1, count($this->tab));
+      $commentaire-> email = $this->tab[$ra];
       $commentaire-> save();
-    }
-  }
-
-  function link()
-  {
-    $faker = Faker\Factory::create();
-    echo($tab);
-    for ($i = 1; $i <= 2000; $i++) {
-      $user2com = new user2com;
-      $user2com-> email = array_rand($this->tab, 1);
-      $user2com-> idCom = $i;
-      $user2com-> save();
     }
   }
 }

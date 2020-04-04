@@ -9,11 +9,6 @@ class commentaire extends Model
 {
     protected $table = 'commentaire';
     protected $primaryKey = 'idCom';
-    protected $fillable = ['idCom', 'titre', 'contenu', 'created_at', 'updated_at', 'dateCrea'];
+    protected $fillable = ['idCom', 'titre', 'contenu', 'created_at', 'updated_at', 'dateCrea', 'email'];
     public $timestamps = true;
-
-    public function user(){
-        return $this->belongsToMany('\gamepedia\model\utilisateur', 'user2com', 'email', 'idCom');
-    }
-
 }
