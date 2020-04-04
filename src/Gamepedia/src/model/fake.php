@@ -46,6 +46,7 @@ class fake {
       $commentaire-> titre = $faker->sentence($nbWords = 1, $variableNbWords = true);
       $commentaire-> contenu = $faker->sentence($nbWords = 30, $variableNbWords = true);
       $commentaire-> idJeu = rand(1, 47948);
+      $commentaire-> datCrea = $faker->dateTime($max='now', $timezone=null);
       $commentaire-> save();
     }
   }
