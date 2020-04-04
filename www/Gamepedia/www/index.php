@@ -259,6 +259,19 @@ function listCommUser() {
 }
 
 
+function listUser5() {
+  $user = utilisateur::with('comments')->get();
+    foreach($user as $u) {
+      $count=count($u->comments);
+      if($count>5) {
+        echo "<p>$u->prenom $u->nom : nombre de commentaires = $count</p></br></br>";
+      }
+    }
+  getLog();
+}
+
+
+
  // --- Affichage ---
 
 $app->get('/accueil[/]',
@@ -298,6 +311,9 @@ font-size: 1.3em;
   <a href="$path/ratM33">Listes jeux Mario avec plus de 3 personnages avec un rating de plus 3</a></br>
   <a href="$path/ratM33I">Listes jeux Mario publié par une compagnie contenant Inc avec plus de 3 personnages avec un rating de plus 3</a></br>
   <a href="$path/ratM33IC">Listes jeux Mario publié par une compagnie contenant Inc avec plus de 3 personnages avec un rating de plus 3 par CERO</a>
+  <h3>Séance 4 :</h3>
+  <a href="$path/listCommentUser">Liste des commentaires postés par un utilisateur donné</a></br>
+  <a href="$path/listUser5+">Liste des utilisateurs qui ont posté plus de 5 commentaires</a>
 </body>
 </html>
 END;
@@ -409,6 +425,7 @@ $app->get('/ratM33IC[/]',
         return $rs;
     });
 
+//Lance le script qui remplit les table commentaires et utilisateurs - NE PAS LANCER SANS AVOIR VIDE LES TABLES UTILISATEUR ET COMENTAIRES
 $app->get('/insertion[/]',
     function(Request $rq, Response $rs, $args) {
       $fake = new fake;
@@ -426,5 +443,13 @@ $app->get('/listCommentUser[/]',
     $rs->getBody()->write($res);
     return $rs;
   });
+
+  $app->get('/listUser5+[/]',
+    function(Request $rq, Response $rs, $args) {
+      $res= "<h2>liste des utilisateurs qui ont posté plus de 5 commentaires</h2>";
+      listUser5();
+      $rs->getBody()->write($res);
+      return $rs;
+    });
 
 $app->run();
